@@ -1,23 +1,45 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import imgLogin from '../images/adminback.png';
+"use client";
+import React from "react";
+import Image from "next/image";
+import imgLogin from "../images/adminback.png";
+import { useRouter } from "next/navigation";
+
+export const RegisterButton: React.FC = () => {
+  const router = useRouter();
+
+  const handleRegister = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    router.push("/register");
+  };
+  return (
+    <a className="text-blue-700 hover:text-blue-500 px-1 "
+      href="/register"
+      onClick={handleRegister}
+    >
+      Register Now
+    </a>
+  );
+};
 
 const Page: React.FC = () => {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log('Form submitted');
+    console.log("Form submitted");
   };
 
   return (
     <div className="grid md:grid-cols-2 h-screen overflow-hidden animate__animated animate__fadeIn">
       <Image src={imgLogin} alt="background image" />
       <div className="flex flex-col justify-center p-16">
-        <h1 className="text-4xl font-bold">Login</h1>
+        <h1 className="text-4xl font-bold mb-2">Login</h1>
         <p className="text-lg text-gray-600">Enter your details</p>
         <form className="mt-8 space-y-8" onSubmit={handleLogin}>
           <div className="flex flex-col">
-            <label htmlFor="email" className="font-semibold text-lg mb-1">Email</label>
+            <label htmlFor="email" className="font-semibold text-lg mb-1">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -28,7 +50,9 @@ const Page: React.FC = () => {
             />
           </div>
           <div className="flex flex-col relative">
-            <label htmlFor="password" className="font-semibold text-lg mb-1">Password</label>
+            <label htmlFor="password" className="font-semibold text-lg mb-1">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -38,15 +62,17 @@ const Page: React.FC = () => {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-3 font-semibold px-8 rounded hover:bg-rose-600"
-          >
-            Login
-          </button>
+          <div className="flex items-center justify-center">
+            <button
+              type="submit"
+              className="bg-blue-700 text-white py-2 font-semibold px-8 rounded-md hover:bg-blue-500 mb-4"
+            >
+              Login
+            </button>
+          </div>
         </form>
         <div>
-          Don't have an account? <a className="text-blue-600" href="/signup">Register Now</a>
+          Don't have an account? <RegisterButton />
         </div>
       </div>
     </div>
