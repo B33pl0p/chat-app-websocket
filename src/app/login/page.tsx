@@ -2,26 +2,26 @@
 import React from "react";
 import Image from "next/image";
 import imgLogin from "../images/adminback.png";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
-export const RegisterButton: React.FC = () => {
-  const router = useRouter();
+// export const RegisterButton: React.FC = () => {
+//   const router = useRouter();
 
-  const handleRegister = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    router.push("/register");
-  };
-  return (
-    <a className="text-blue-700 hover:text-blue-500 px-1 "
-      href="/register"
-      onClick={handleRegister}
-    >
-      Register Now
-    </a>
-  );
-};
+//   const handleRegister = (
+//     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+//   ) => {
+//     e.preventDefault();
+//     router.push("/register");
+//   };
+//   return (
+//     <a className="text-blue-700 hover:text-blue-500 px-1 "
+//       href="/register"
+//       onClick={handleRegister}
+//     >
+//       Register Now
+//     </a>
+//   );
+// };
 
 const Page: React.FC = () => {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -71,9 +71,12 @@ const Page: React.FC = () => {
             </button>
           </div>
         </form>
-        <div>
-          Don't have an account? <RegisterButton />
-        </div>
+        <p className="text-center mt-4">
+        Don't have an account?{" "}
+        <a href="/register" className="text-indigo-600 hover:text-indigo-700">
+          Register here!
+        </a>
+      </p>
       </div>
     </div>
   );
