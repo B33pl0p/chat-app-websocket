@@ -1,33 +1,26 @@
-"use client"; // Ensure this is a client-side component in Next.js 13+
-
+"use client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { validateLoginRegisterSchema } from "../utils/validate";
+import { isValid, z } from "zod";
 
-// Define validation schema using Zod
-const schema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type FormData = z.infer<typeof schema>;
+const registerSchema = validateLoginRegisterSchema(false); // false because this is the register page
+type RegisterPageData = z.infer<typeof registerSchema>;
 
 const RegisterPage: React.FC = () => {
   const {
+    
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    formState: { errors, isValid, isDirty, dirtyFields },
+  } = useForm<RegisterPageData>({
+    resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: FormData) => {
-    // Handle form submission
-    console.log("Form submitted:", data);
-
-    // Reset form after submission
-    // Optionally handle API calls for registration here
+  const onSubmit = (data: RegisterPageData) => {
+    console.log("Registration form submitted with data: ", data);
+    // Handle registration logic here (e.g., API call)
   };
 
   return (
@@ -45,7 +38,7 @@ const RegisterPage: React.FC = () => {
             id="email"
             type="email"
             {...register("email")}
-            placeholder="Enter your email"
+            placeholder="johndoe@example.com"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           />
           {errors.email && (
@@ -64,11 +57,31 @@ const RegisterPage: React.FC = () => {
             id="password"
             type="password"
             {...register("password")}
-            placeholder="Enter your password"
+            placeholder="********"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
           />
           {errors.password && (
             <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Confirm Password
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            {...register("confirmPassword")}
+            placeholder="********"
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+          />
+          
+          {errors.confirmPassword && (
+            <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
           )}
         </div>
 
@@ -77,7 +90,6 @@ const RegisterPage: React.FC = () => {
           className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
         >
           Register
-        
         </button>
       </form>
 
