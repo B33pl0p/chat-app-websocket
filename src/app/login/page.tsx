@@ -6,16 +6,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validateLoginRegisterSchema } from "../utils/validate";
 import { z } from "zod";
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation";
 
-
-const loginSchema = validateLoginRegisterSchema(true); 
+const loginSchema = validateLoginRegisterSchema(true);
 
 type LoginPageData = z.infer<typeof loginSchema>;
 
 const LoginPage: React.FC = () => {
-  
-  const router = useRouter()
+  const router = useRouter();
   // zod schema initialize
   const {
     register,
@@ -29,11 +27,10 @@ const LoginPage: React.FC = () => {
   const onSubmit = (data: LoginPageData) => {
     try {
       console.log("Login data submitted:", data);
-      router.push("/dashboard")
+      router.push("/dashboard");
     } catch (error) {
-      console.error("error while logging", error)
+      console.error("error while logging", error);
     }
-    
 
     // Add your login logic here (e.g., API call)
   };
@@ -91,10 +88,7 @@ const LoginPage: React.FC = () => {
 
         <p className="text-center mt-4">
           Don't have an account?{" "}
-          <a
-            href="/register"
-            className="text-indigo-600 hover:text-indigo-700"
-          >
+          <a href="/register" className="text-indigo-600 hover:text-indigo-700">
             Register here!
           </a>
         </p>

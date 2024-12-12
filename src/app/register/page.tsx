@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validateLoginRegisterSchema } from "../utils/validate";
-import { isValid, z } from "zod";
+import { z } from "zod";
 
 const registerSchema = validateLoginRegisterSchema(false); // false because this is the register page
 type RegisterPageData = z.infer<typeof registerSchema>;

@@ -1,10 +1,12 @@
-'use client';
-import React from 'react'
+"use client";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+import React from "react";
+import NavBar from "./components/NavBar";
 
-export default page
+ const Hero = () => {
+  const navItems = ["About", "Footer"];
+
+  return <NavBar navItems={navItems} />;
+};
+
+export default Hero
